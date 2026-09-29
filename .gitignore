@@ -1,0 +1,20 @@
+# Local machine configuration
+*.local.sql
+
+# Power BI local/cache files
+**/.pbi/
+**/localSettings.json
+
+# Python
+__pycache__/
+.ipynb_checkpoints/
+
+# Secrets
+.env
+.env.*
+*.pem
+*.key
+
+# OS files
+Thumbs.db
+.DS_Store
