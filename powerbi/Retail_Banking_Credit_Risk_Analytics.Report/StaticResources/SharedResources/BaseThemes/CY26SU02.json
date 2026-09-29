@@ -1,0 +1,44 @@
+{
+  "name": "CY26SU02",
+  "dataColors": [
+    "#0F4C81",
+    "#00A3A3",
+    "#F2A900",
+    "#D9485F",
+    "#6C63FF",
+    "#2E8B67",
+    "#2F80ED",
+    "#9C6ADE",
+    "#D97706",
+    "#475569"
+  ],
+  "foreground": "#16324F",
+  "background": "#F4F7FB",
+  "backgroundLight": "#F4F7FB",
+  "tableAccent": "#00A3A3",
+  "good": "#2E8B67",
+  "neutral": "#F2A900",
+  "bad": "#D9485F",
+  "textClasses": {
+    "title": {
+      "fontSize": 14,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#16324F"
+    },
+    "header": {
+      "fontSize": 12,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#16324F"
+    },
+    "label": {
+      "fontSize": 10,
+      "fontFace": "Segoe UI",
+      "color": "#475569"
+    },
+    "callout": {
+      "fontSize": 26,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#16324F"
+    }
+  }
+}

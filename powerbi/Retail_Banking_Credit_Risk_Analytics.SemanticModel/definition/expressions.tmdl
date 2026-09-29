@@ -1,0 +1,7 @@
+expression pProjectRoot = "C:\Users\Hariiii\Downloads\Retail_Banking_Credit_Risk_Analytics_PORTFOLIO_READY_FINAL" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: ea729a54-ff5e-4dc5-b2b1-6df0b7bab059
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

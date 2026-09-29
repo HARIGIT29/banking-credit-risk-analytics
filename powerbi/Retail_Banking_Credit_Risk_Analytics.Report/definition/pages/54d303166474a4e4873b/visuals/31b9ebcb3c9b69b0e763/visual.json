@@ -1,0 +1,206 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "31b9ebcb3c9b69b0e763",
+  "position": {
+    "x": 191.99999999999997,
+    "y": 288,
+    "z": 18000,
+    "height": 352,
+    "width": 640,
+    "tabOrder": 18000
+  },
+  "visual": {
+    "visualType": "scatterChart",
+    "query": {
+      "queryState": {
+        "Details": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Customer_Risk"
+                    }
+                  },
+                  "Property": "ID"
+                }
+              },
+              "queryRef": "Customer_Risk.ID",
+              "nativeQueryRef": "ID"
+            }
+          ]
+        },
+        "Legend": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Customer_Risk"
+                    }
+                  },
+                  "Property": "Default_Label"
+                }
+              },
+              "queryRef": "Customer_Risk.Default_Label",
+              "nativeQueryRef": "Default_Label"
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Customer_Risk"
+                    }
+                  },
+                  "Property": "Default_Label"
+                }
+              },
+              "queryRef": "Customer_Risk.Default_Label",
+              "nativeQueryRef": "Default_Label"
+            }
+          ]
+        },
+        "Size": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Customer_Risk"
+                        }
+                      },
+                      "Property": "LIMIT_BAL"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Avg(Customer_Risk.LIMIT_BAL)",
+              "nativeQueryRef": "LIMIT_BAL"
+            }
+          ]
+        },
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Customer_Risk"
+                    }
+                  },
+                  "Property": "Credit_Utilization"
+                }
+              },
+              "queryRef": "Avg(Customer_Risk.Credit_Utilization)",
+              "nativeQueryRef": "Credit_Utilization1",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Customer_Risk"
+                    }
+                  },
+                  "Property": "Delinquency_Count"
+                }
+              },
+              "queryRef": "Avg(Customer_Risk.Delinquency_Count)",
+              "nativeQueryRef": "Delinquency_Count1"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Customer-Level Risk Map'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "11D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0L"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

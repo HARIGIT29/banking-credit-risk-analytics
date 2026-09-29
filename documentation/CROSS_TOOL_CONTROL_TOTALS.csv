@@ -1,0 +1,13 @@
+Metric,Excel/Python Control,Power BI Measure,Tolerance
+Total Customers,30000,Total Customers,0
+Defaulted Customers,6636,Defaulted Customers,0
+Observed Default Rate,0.2212,Observed Default Rate,0.00005
+Total Credit Limit,5024529680,Total Credit Limit,1
+Average Credit Limit,167484,Average Credit Limit,1
+Average 6M Bill,44977,Average 6M Bill,1
+Average 6M Payment,5275,Average 6M Payment,1
+Customers With Delinquency,10069,Customers With Delinquency,0
+Delinquency Rate,0.3356,Delinquency Rate,0.00005
+Positive-Bill Customers,27402,Positive-Bill Customers,0
+Positive-Bill No-Payment Rate,0.1275,Positive-Bill No-Payment Rate,0.00005
+Portfolio Payment Coverage,0.1171897309,Payment Coverage,0.000001

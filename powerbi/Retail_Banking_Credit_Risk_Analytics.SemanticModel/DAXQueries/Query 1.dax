@@ -1,0 +1,9 @@
+Monthly Delay Rate =
+DIVIDE(
+    CALCULATE(
+        COUNTROWS(FactRepayment),
+        FactRepayment[PayStatus] > 0
+    ),
+    COUNTROWS(FactRepayment),
+    0
+)

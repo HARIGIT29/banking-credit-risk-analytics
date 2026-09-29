@@ -1,0 +1,35 @@
+table DimMonth
+	lineageTag: 9259b426-e9e5-4fc6-a0b6-ebce358deeb0
+
+	column MonthIndex
+		lineageTag: fd7c1b0d-a39a-4428-bb80-20b4fe0c496d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [MonthIndex]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthName
+		lineageTag: c027cdc5-5e9b-4bf7-9aa2-08b346cc9f67
+		summarizeBy: none
+		sourceColumn: [MonthLabel]
+		sortByColumn: MonthIndex
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimMonth = calculated
+		mode: import
+		source =
+				DATATABLE(
+				    "MonthIndex", INTEGER,
+				    "MonthLabel", STRING,
+				    {
+				        { 1, "Apr 2005" },
+				        { 2, "May 2005" },
+				        { 3, "Jun 2005" },
+				        { 4, "Jul 2005" },
+				        { 5, "Aug 2005" },
+				        { 6, "Sep 2005" }
+				    }
+				)
+

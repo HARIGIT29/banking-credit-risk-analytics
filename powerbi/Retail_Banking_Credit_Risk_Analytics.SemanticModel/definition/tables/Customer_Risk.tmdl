@@ -1,0 +1,599 @@
+table Customer_Risk
+	lineageTag: a8873bb3-49f5-4e50-b06b-c5469942011a
+
+	measure 'Total Customers' =
+			
+			COUNTROWS('Customer_Risk')
+		formatString: #,##0
+		lineageTag: be7a6948-85ba-4842-b901-cd4e88271bbe
+
+	measure 'Defaulted Customers' =
+			
+			CALCULATE(
+			    [Total Customers],
+			    'Customer_Risk'[default payment next month] = 1
+			)
+		formatString: #,##0
+		lineageTag: 936e67a5-20bc-43a7-b1e1-5d65b95db814
+
+	measure 'Observed Default Rate' =
+			
+			DIVIDE(
+			    [Defaulted Customers],
+			    [Total Customers],
+			    0
+			)
+		formatString: 0.00%
+		lineageTag: be28b962-fa89-4a23-a226-d1914478c81e
+
+	measure 'Total Credit Limit' =
+			
+			SUM('Customer_Risk'[LIMIT_BAL])
+		formatString: #,##0 "NT$"
+		lineageTag: 2cc1efbe-d8f9-4242-846a-3204c6062dfb
+
+	measure 'Average Credit Limit' =
+			
+			AVERAGE('Customer_Risk'[LIMIT_BAL])
+		formatString: #,##0 "NT$"
+		lineageTag: fd493215-f4ea-4911-a5db-3b44ccf7b28c
+
+	measure 'Average 6M Bill' =
+			
+			AVERAGE('Customer_Risk'[Avg_Bill_6M])
+		formatString: #,##0 "NT$"
+		lineageTag: b0373140-3b4b-4502-9ba9-bac2508d8306
+
+	measure 'Average 6M Payment' =
+			
+			AVERAGE('Customer_Risk'[Avg_Payment_6M])
+		formatString: #,##0 "NT$"
+		lineageTag: 05c93958-a049-4d2b-aa4f-a2d6acf00673
+
+	measure 'Average Latest Utilization' =
+			
+			AVERAGE('Customer_Risk'[Credit_Utilization])
+		formatString: 0.00%
+		lineageTag: 5692e57a-341e-459d-ae89-34b51c9be911
+
+	measure 'Customers With Delinquency' =
+			
+			CALCULATE(
+			    [Total Customers],
+			    'Customer_Risk'[Delinquency_Count] > 0
+			)
+		formatString: #,##0
+		lineageTag: 426dd886-02e0-4277-be00-a6a37a22fd43
+
+	measure 'Delinquency Rate' =
+			
+			DIVIDE(
+			    [Customers With Delinquency],
+			    [Total Customers],
+			    0
+			)
+		formatString: 0.00%
+		lineageTag: 33193b3f-c1bf-4fd2-9b50-1e65981570e7
+
+	measure 'Positive-Bill Customers' =
+			CALCULATE(
+			    [Total Customers],
+			    'Customer_Risk'[BILL_AMT1] > 0
+			)
+		formatString: #,##0
+		lineageTag: 0f7cb81c-afa4-46f1-928f-c7393cc4006d
+
+	measure 'Positive-Bill No Payment' =
+			
+			CALCULATE(
+			    [Total Customers],
+			    'Customer_Risk'[BILL_AMT1] > 0,
+			    'Customer_Risk'[PAY_AMT1] = 0
+			)
+		formatString: #,##0
+		lineageTag: a23f0ec5-c833-48e8-827a-c9136f7d3029
+
+	measure 'Positive-Bill No-Payment Rate' = DIVIDE([Positive-Bill No Payment], [Positive-Bill Customers], 0)
+		formatString: 0.00%
+		lineageTag: 778ac164-4176-4282-b936-04787f9c25b0
+
+	measure 'Total Payments 6M' = SUM('Customer_Risk'[PAY_AMT1]) + SUM('Customer_Risk'[PAY_AMT2]) + SUM('Customer_Risk'[PAY_AMT3]) + SUM('Customer_Risk'[PAY_AMT4]) + SUM('Customer_Risk'[PAY_AMT5]) + SUM('Customer_Risk'[PAY_AMT6])
+		formatString: #,##0 "NT$"
+		lineageTag: f5d91c2a-2876-4c7c-abf0-497b0f745aaf
+
+	measure 'Total Positive Bills 6M' = SUMX('Customer_Risk', IF('Customer_Risk'[BILL_AMT1] > 0, 'Customer_Risk'[BILL_AMT1], 0) + IF('Customer_Risk'[BILL_AMT2] > 0, 'Customer_Risk'[BILL_AMT2], 0) + IF('Customer_Risk'[BILL_AMT3] > 0, 'Customer_Risk'[BILL_AMT3], 0) + IF('Customer_Risk'[BILL_AMT4] > 0, 'Customer_Risk'[BILL_AMT4], 0) + IF('Customer_Risk'[BILL_AMT5] > 0, 'Customer_Risk'[BILL_AMT5], 0) + IF('Customer_Risk'[BILL_AMT6] > 0, 'Customer_Risk'[BILL_AMT6], 0))
+		formatString: #,##0 "NT$"
+		lineageTag: 7e147f5d-b227-4ec9-bb4c-bf981865c7a3
+
+	measure 'Payment Coverage' = DIVIDE([Total Payments 6M], [Total Positive Bills 6M], 0)
+		formatString: 0.00%
+		lineageTag: b54b69da-5803-4d09-9cb4-2c1626c7adcd
+
+	measure 'Defaulted Credit-Limit Share' =
+			
+			DIVIDE(
+			    CALCULATE(
+			        [Total Credit Limit],
+			        REMOVEFILTERS('Customer_Risk'[Default_Label]),
+			        'Customer_Risk'[default payment next month] = 1
+			    ),
+			    CALCULATE(
+			        [Total Credit Limit],
+			        REMOVEFILTERS(
+			            'Customer_Risk'[Default_Label],
+			            'Customer_Risk'[default payment next month]
+			        )
+			    ),
+			    0
+			)
+		formatString: 0.00%
+		lineageTag: 37115a99-9d17-4a3c-892f-002152da7001
+
+	measure 'Repeated Delay Customers' =
+			
+			CALCULATE(
+			    [Total Customers],
+			    'Customer_Risk'[Delinquency_Count] >= 2
+			)
+		formatString: #,##0
+		lineageTag: 3ae3fe79-36bd-4be2-afe3-df58ff8d2ab2
+
+	measure 'High Exposure Repeated Delay' =
+			
+			CALCULATE(
+			    [Total Customers],
+			    'Customer_Risk'[Delinquency_Count] >= 2,
+			    'Customer_Risk'[LIMIT_BAL] >= 100000
+			)
+		formatString: #,##0
+		lineageTag: ce4954bc-3b9b-435a-a3fc-78f14339c264
+
+	measure 'Average Maximum Repayment Status' =
+			
+			AVERAGE('Customer_Risk'[Max_Delinquency_Code])
+		formatString: 0.00
+		lineageTag: cd82403e-c7ca-4a83-a567-78a241e492a4
+
+	measure 'Default Rate — Payment Behavior' = DIVIDE([Defaulted Customers], [Total Customers], 0)
+		formatString: 0.00%
+		lineageTag: 70444212-e120-4296-9a83-065c6cb66c8f
+
+	measure 'Portfolio Exposure Share' = DIVIDE([Total Credit Limit], CALCULATE([Total Credit Limit], ALL('Customer_Risk')), 0)
+		formatString: 0.00%
+		lineageTag: 51ab4b2b-a289-4854-b6af-91d91e7982dc
+
+	measure 'Monthly Avg Positive Bill' =
+			
+			CALCULATE(
+			    AVERAGE(FactRepayment[BillAmount]),
+			    FactRepayment[BillAmount] > 0
+			)
+		formatString: #,##0 "NT$"
+		lineageTag: 38c7aaa8-b2e8-4726-8d59-dfc66760506a
+
+	measure 'Monthly Avg Payment' =
+			
+			AVERAGE(FactRepayment[PaymentAmount])
+		formatString: #,##0 "NT$"
+		lineageTag: f0524ebd-99b5-4a13-aa3d-2228b3df4e3f
+
+	measure 'Monthly Total Positive Bills' =
+			
+			SUMX(
+			    FactRepayment,
+			    IF(
+			        FactRepayment[BillAmount] > 0,
+			        FactRepayment[BillAmount],
+			        0
+			    )
+			)
+		formatString: #,##0 "NT$"
+		lineageTag: 2e019728-fd8f-49e6-b4d1-60bc5d03b0d7
+
+	measure 'Monthly Total Payment' =
+			
+			SUM(FactRepayment[PaymentAmount])
+		formatString: #,##0 "NT$"
+		lineageTag: 648ee524-40c3-415f-903f-413864db8ccb
+
+	measure 'Monthly Payment Coverage' =
+			
+			DIVIDE(
+			    [Monthly Total Payment],
+			    [Monthly Total Positive Bills],
+			    0
+			)
+		formatString: 0.00%
+		lineageTag: 34b58c41-a98e-454a-9227-d3b092c79878
+
+	measure 'Monthly Delay Rate' =
+			
+			DIVIDE(
+			    CALCULATE(
+			        COUNTROWS(FactRepayment),
+			        FactRepayment[PayStatus] > 0
+			    ),
+			    COUNTROWS(FactRepayment),
+			    0
+			)
+		formatString: 0.00%
+		lineageTag: e676df6a-6e0c-4127-8267-561f6755cfa1
+
+	column ID
+		dataType: int64
+		lineageTag: 835b6cf7-f4a1-4f81-90f8-121a8587f581
+		summarizeBy: none
+		sourceColumn: ID
+
+	column LIMIT_BAL
+		dataType: double
+		lineageTag: 31227678-b75e-474a-b5c3-92a2e144405c
+		summarizeBy: sum
+		sourceColumn: LIMIT_BAL
+
+	column SEX
+		dataType: int64
+		lineageTag: 634682a5-fffb-482b-93e6-33f0b8e71fa1
+		summarizeBy: none
+		sourceColumn: SEX
+
+	column EDUCATION
+		dataType: int64
+		lineageTag: cb27098b-2056-4539-a7d7-7819ab15f68b
+		summarizeBy: none
+		sourceColumn: EDUCATION
+
+	column MARRIAGE
+		dataType: int64
+		lineageTag: 086f36e8-e3b2-4ea6-a408-40b467f2237e
+		summarizeBy: none
+		sourceColumn: MARRIAGE
+
+	column AGE
+		dataType: int64
+		lineageTag: ca720604-30ea-4061-b569-f2d516c1d717
+		summarizeBy: average
+		sourceColumn: AGE
+
+	column PAY_0
+		dataType: int64
+		lineageTag: cc8b1cae-50b5-4cf2-97a2-979b792ba7d8
+		summarizeBy: none
+		sourceColumn: PAY_0
+
+	column PAY_2
+		dataType: int64
+		lineageTag: 7bc1b6f6-23e2-4540-bd9a-e5fd7023c1cc
+		summarizeBy: none
+		sourceColumn: PAY_2
+
+	column PAY_3
+		dataType: int64
+		lineageTag: 650aab42-6a86-41fb-a80a-2a6d8f668eac
+		summarizeBy: none
+		sourceColumn: PAY_3
+
+	column PAY_4
+		dataType: int64
+		lineageTag: 27c4248c-2223-4022-9624-a4292287bb53
+		summarizeBy: none
+		sourceColumn: PAY_4
+
+	column PAY_5
+		dataType: int64
+		lineageTag: a50bf51c-9cfe-4b57-8e95-96d976bdef2c
+		summarizeBy: none
+		sourceColumn: PAY_5
+
+	column PAY_6
+		dataType: int64
+		lineageTag: 40912053-7e97-4230-9075-4df6071b7631
+		summarizeBy: none
+		sourceColumn: PAY_6
+
+	column BILL_AMT1
+		dataType: double
+		lineageTag: 30355ced-2e16-4a8f-b956-b97125882e2f
+		summarizeBy: sum
+		sourceColumn: BILL_AMT1
+
+	column BILL_AMT2
+		dataType: double
+		lineageTag: cd86cf1d-0887-4dc5-9414-1241f34842ec
+		summarizeBy: sum
+		sourceColumn: BILL_AMT2
+
+	column BILL_AMT3
+		dataType: double
+		lineageTag: 6e975283-c96b-48ad-affe-50a86a223e2b
+		summarizeBy: sum
+		sourceColumn: BILL_AMT3
+
+	column BILL_AMT4
+		dataType: double
+		lineageTag: 1595732e-6f66-446a-ad12-07b33c506aa8
+		summarizeBy: sum
+		sourceColumn: BILL_AMT4
+
+	column BILL_AMT5
+		dataType: double
+		lineageTag: 54417fe3-07e5-476e-ba98-d7c8b188ab2a
+		summarizeBy: sum
+		sourceColumn: BILL_AMT5
+
+	column BILL_AMT6
+		dataType: double
+		lineageTag: 98962d63-ddae-420c-a6f1-d6920b1c9a3a
+		summarizeBy: sum
+		sourceColumn: BILL_AMT6
+
+	column PAY_AMT1
+		dataType: double
+		lineageTag: 5c6d86a1-38b0-427d-9bb3-aca23f348575
+		summarizeBy: sum
+		sourceColumn: PAY_AMT1
+
+	column PAY_AMT2
+		dataType: double
+		lineageTag: 7a0f54b1-dd37-4a83-b457-684aedaba488
+		summarizeBy: sum
+		sourceColumn: PAY_AMT2
+
+	column PAY_AMT3
+		dataType: double
+		lineageTag: 6377b9cd-3834-4925-8386-7349ddc09d85
+		summarizeBy: sum
+		sourceColumn: PAY_AMT3
+
+	column PAY_AMT4
+		dataType: double
+		lineageTag: 11e1120b-cbf9-42a0-864d-7674c952f20e
+		summarizeBy: sum
+		sourceColumn: PAY_AMT4
+
+	column PAY_AMT5
+		dataType: double
+		lineageTag: 5178e642-6aed-4812-8db8-605dd2c6a481
+		summarizeBy: sum
+		sourceColumn: PAY_AMT5
+
+	column PAY_AMT6
+		dataType: double
+		lineageTag: 73075eb8-11c9-49bb-bbc8-16d7c90d683d
+		summarizeBy: sum
+		sourceColumn: PAY_AMT6
+
+	column 'default payment next month'
+		dataType: int64
+		lineageTag: 7510a76d-aee8-4e72-9113-f4f41bd04fc7
+		summarizeBy: none
+		sourceColumn: default payment next month
+
+	column Avg_Bill_6M
+		dataType: double
+		lineageTag: 74007c94-fa82-41b7-b98d-0f824251f170
+		summarizeBy: average
+		sourceColumn: Avg_Bill_6M
+
+	column Avg_Payment_6M
+		dataType: double
+		lineageTag: 347a3b5f-b511-4b06-8e51-981c147b6241
+		summarizeBy: average
+		sourceColumn: Avg_Payment_6M
+
+	column Credit_Utilization
+		dataType: double
+		lineageTag: 9b488e6b-fbec-4986-9817-4d986a6506d8
+		summarizeBy: average
+		sourceColumn: Credit_Utilization
+
+	column Payment_to_Bill_Ratio_Valid
+		dataType: double
+		lineageTag: 041ac728-4cc9-4adb-ac32-88c5d0d7591e
+		summarizeBy: average
+		sourceColumn: Payment_to_Bill_Ratio_Valid
+
+	column Bill_Amount_Status
+		dataType: string
+		lineageTag: e01598ac-c552-4366-9d2a-6bfd67c50a00
+		summarizeBy: none
+		sourceColumn: Bill_Amount_Status
+
+	column Payment_vs_Bill_Status
+		dataType: string
+		lineageTag: 069e3783-8098-4262-8c68-c78e5371eefb
+		summarizeBy: none
+		sourceColumn: Payment_vs_Bill_Status
+		sortByColumn: 'Payment vs Bill Sort'
+
+		changedProperty = SortByColumn
+
+	column PAY_0_Delayed
+		dataType: int64
+		lineageTag: 78193bbd-2652-474e-8a4c-a05c392e060e
+		summarizeBy: average
+		sourceColumn: PAY_0_Delayed
+
+	column PAY_2_Delayed
+		dataType: int64
+		lineageTag: 058722fc-77d0-4e6b-b125-63ec147c0029
+		summarizeBy: average
+		sourceColumn: PAY_2_Delayed
+
+	column PAY_3_Delayed
+		dataType: int64
+		lineageTag: 1a08e6f2-19ed-4eab-9be8-c3be8d9dd3dd
+		summarizeBy: average
+		sourceColumn: PAY_3_Delayed
+
+	column PAY_4_Delayed
+		dataType: int64
+		lineageTag: 71d0cf2c-c4f2-453b-84a2-642d533f50db
+		summarizeBy: average
+		sourceColumn: PAY_4_Delayed
+
+	column PAY_5_Delayed
+		dataType: int64
+		lineageTag: 5b3b667a-b14e-467f-9abd-a2f1a2580638
+		summarizeBy: average
+		sourceColumn: PAY_5_Delayed
+
+	column PAY_6_Delayed
+		dataType: int64
+		lineageTag: 1a4eedb2-2403-4555-b7ac-e0c2e308f6ba
+		summarizeBy: average
+		sourceColumn: PAY_6_Delayed
+
+	column Delinquency_Count
+		dataType: int64
+		lineageTag: 6bcf989a-6f4a-4dd5-ac0b-a17e6a6051ed
+		summarizeBy: average
+		sourceColumn: Delinquency_Count
+
+	column Max_Delinquency_Code
+		dataType: int64
+		lineageTag: 33419424-d450-4891-a4af-801373b8c038
+		summarizeBy: average
+		sourceColumn: Max_Delinquency_Code
+
+	column Default_Label
+		dataType: string
+		lineageTag: 923ca834-e5ee-4a50-9d0b-be94bf81c01a
+		summarizeBy: none
+		sourceColumn: Default_Label
+
+	column Age_Group
+		dataType: string
+		lineageTag: 0f2f5bb6-b481-42a1-a4f3-aadb38981c03
+		summarizeBy: none
+		sourceColumn: Age_Group
+
+	column Credit_Limit_Band
+		dataType: string
+		lineageTag: e57d339d-040f-44c4-8bb4-69aadf65b042
+		summarizeBy: none
+		sourceColumn: Credit_Limit_Band
+		sortByColumn: 'Credit Limit Band Sort'
+
+		changedProperty = SortByColumn
+
+	column Utilization_Band
+		dataType: string
+		lineageTag: ea2c97af-72e3-4ef2-8908-cefee7245233
+		summarizeBy: none
+		sourceColumn: Utilization_Band
+		sortByColumn: 'Utilization Band Sort'
+
+		changedProperty = SortByColumn
+
+	column 'Credit Limit Band Sort' =
+			
+			SWITCH(
+			    TRUE(),
+			    'Customer_Risk'[LIMIT_BAL] < 50000, 1,
+			    'Customer_Risk'[LIMIT_BAL] < 100000, 2,
+			    'Customer_Risk'[LIMIT_BAL] < 200000, 3,
+			    'Customer_Risk'[LIMIT_BAL] < 500000, 4,
+			    'Customer_Risk'[LIMIT_BAL] >= 500000, 5,
+			    99
+			)
+		formatString: 0
+		lineageTag: 0f9c695f-61e9-4d17-bca3-2c05f5e8fb93
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Utilization Band Sort' =
+			
+			SWITCH(
+			    TRUE(),
+			    'Customer_Risk'[Credit_Utilization] < 0.25, 1,
+			    'Customer_Risk'[Credit_Utilization] < 0.50, 2,
+			    'Customer_Risk'[Credit_Utilization] < 0.75, 3,
+			    'Customer_Risk'[Credit_Utilization] <= 1.00, 4,
+			    'Customer_Risk'[Credit_Utilization] > 1.00, 5,
+			    99
+			)
+		formatString: 0
+		lineageTag: 51c06b11-2828-4155-8e45-a32f258608db
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Payment vs Bill Sort' =
+			
+			SWITCH(
+			    TRUE(),
+			    'Customer_Risk'[Payment_to_Bill_Ratio_Valid] = 0, 1,
+			    'Customer_Risk'[Payment_to_Bill_Ratio_Valid] < 1, 2,
+			    'Customer_Risk'[Payment_to_Bill_Ratio_Valid] = 1, 3,
+			    'Customer_Risk'[Payment_to_Bill_Ratio_Valid] > 1, 4,
+			    99
+			)
+		formatString: 0
+		lineageTag: 04dac3cd-e602-465d-9948-13de15f6318a
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Customer_Risk = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(
+				    pProjectRoot & "\data\cleaned\banking_credit_risk_cleaned.csv"
+				)),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {
+				        {"ID", Int64.Type},
+				        {"LIMIT_BAL", type number},
+				        {"SEX", Int64.Type},
+				        {"EDUCATION", Int64.Type},
+				        {"MARRIAGE", Int64.Type},
+				        {"AGE", Int64.Type},
+				        {"PAY_0", Int64.Type},
+				        {"PAY_2", Int64.Type},
+				        {"PAY_3", Int64.Type},
+				        {"PAY_4", Int64.Type},
+				        {"PAY_5", Int64.Type},
+				        {"PAY_6", Int64.Type},
+				        {"BILL_AMT1", type number},
+				        {"BILL_AMT2", type number},
+				        {"BILL_AMT3", type number},
+				        {"BILL_AMT4", type number},
+				        {"BILL_AMT5", type number},
+				        {"BILL_AMT6", type number},
+				        {"PAY_AMT1", type number},
+				        {"PAY_AMT2", type number},
+				        {"PAY_AMT3", type number},
+				        {"PAY_AMT4", type number},
+				        {"PAY_AMT5", type number},
+				        {"PAY_AMT6", type number},
+				        {"default payment next month", Int64.Type},
+				        {"Avg_Bill_6M", type number},
+				        {"Avg_Payment_6M", type number},
+				        {"Credit_Utilization", type number},
+				        {"Payment_to_Bill_Ratio_Valid", type number},
+				        {"Bill_Amount_Status", type text},
+				        {"Payment_vs_Bill_Status", type text},
+				        {"PAY_0_Delayed", Int64.Type},
+				        {"PAY_2_Delayed", Int64.Type},
+				        {"PAY_3_Delayed", Int64.Type},
+				        {"PAY_4_Delayed", Int64.Type},
+				        {"PAY_5_Delayed", Int64.Type},
+				        {"PAY_6_Delayed", Int64.Type},
+				        {"Delinquency_Count", Int64.Type},
+				        {"Max_Delinquency_Code", Int64.Type},
+				        {"Default_Label", type text},
+				        {"Age_Group", type text},
+				        {"Credit_Limit_Band", type text},
+				        {"Utilization_Band", type text}
+				    }),
+				    Result = Typed
+				in
+				    Result
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/powerbi-desktop-samples/main/Report%20Theme%20JSON%20Schema/reportThemeSchema-2.152.json",
+  "name": "Retail Banking Executive Fintech",
+  "dataColors": [
+    "#0E2A47",
+    "#12A6A6",
+    "#3E7BE6",
+    "#E6A21A",
+    "#D95C69",
+    "#7E69C7",
+    "#2E8B67",
+    "#77A7D9",
+    "#C98A17",
+    "#66788A"
+  ],
+  "foreground": "#17324D",
+  "background": "#F5F7FA",
+  "backgroundLight": "#FBFCFE",
+  "tableAccent": "#12A6A6",
+  "good": "#2E8B67",
+  "neutral": "#E6A21A",
+  "bad": "#D95C69",
+  "maximum": "#2E8B67",
+  "center": "#F2A900",
+  "minimum": "#D9485F",
+  "null": "#8293A3",
+  "textClasses": {
+    "title": {
+      "fontSize": 14,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#17324D"
+    },
+    "header": {
+      "fontSize": 12,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#17324D"
+    },
+    "label": {
+      "fontSize": 10,
+      "fontFace": "Segoe UI",
+      "color": "#62778A"
+    },
+    "callout": {
+      "fontSize": 28,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#17324D"
+    }
+  }
+}

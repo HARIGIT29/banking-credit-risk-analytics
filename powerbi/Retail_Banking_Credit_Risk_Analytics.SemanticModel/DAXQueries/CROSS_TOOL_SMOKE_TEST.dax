@@ -1,0 +1,15 @@
+-- Run in Power BI Desktop / DAX Query View after refresh.
+-- The Default Status slicer should not change Defaulted Credit-Limit Share.
+EVALUATE
+ROW(
+    "Total Customers", [Total Customers],
+    "Defaulted Customers", [Defaulted Customers],
+    "Observed Default Rate", [Observed Default Rate],
+    "Total Credit Limit", [Total Credit Limit],
+    "Customers With Delinquency", [Customers With Delinquency],
+    "Delinquency Rate", [Delinquency Rate],
+    "Positive-Bill Customers", [Positive-Bill Customers],
+    "Positive-Bill No-Payment Rate", [Positive-Bill No-Payment Rate],
+    "Payment Coverage", [Payment Coverage],
+    "Defaulted Credit-Limit Share", [Defaulted Credit-Limit Share]
+)

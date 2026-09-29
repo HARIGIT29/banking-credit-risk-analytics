@@ -1,0 +1,8 @@
+relationship 9fd4fb15-e3ed-07ff-e6f5-c2db4d4d2629
+	fromColumn: FactRepayment.ID
+	toColumn: DimCustomer.ID
+
+relationship df3e0ac1-6270-01ca-f313-ec86ae6bb4cd
+	fromColumn: FactRepayment.MonthIndex
+	toColumn: DimMonth.MonthIndex
+

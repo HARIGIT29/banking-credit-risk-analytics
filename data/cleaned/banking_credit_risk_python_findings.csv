@@ -1,0 +1,8 @@
+Finding,Evidence
+Portfolio baseline,"30,000 customers; 22.12% observed default rate."
+Credit-limit pattern,<50K: 36.07%; 500K+: 11.21%.
+Delinquency pattern,0 delayed periods: 11.71%; 6 delayed periods: 70.32%.
+Utilization pattern,<25% utilization: 18.28%; >100% utilization: 30.07%.
+Payment activity pattern,"Average 6M payment: 3,328 NT$ for defaulted customers vs 5,828 NT$ for non-defaulted customers."
+Exposure concentration,200K-499K holds 2.94 billion NT$ of recorded credit limit.
+Latest-month no-payment population,"3,495 of 27,402 positive-bill customers made no latest-month payment (12.75%)."

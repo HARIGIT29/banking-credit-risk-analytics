@@ -1,0 +1,13 @@
+Metric,Control_Reference,Python,Difference,Status
+Total Customers,30000.0,30000.0,0.0,PASS
+Defaulted Customers,6636.0,6636.0,0.0,PASS
+Observed Default Rate,0.2212,0.2212,0.0,PASS
+Total Credit Limit,5024529680.0,5024529680.0,0.0,PASS
+Average Credit Limit,167484.0,167484.0,0.0,PASS
+Average 6M Bill,44977.0,44977.0,0.0,PASS
+Average 6M Payment,5275.0,5275.0,0.0,PASS
+Customers With Delinquency,10069.0,10069.0,0.0,PASS
+Delinquency Rate,0.3356,0.3356,0.0,PASS
+Positive-Bill Customers,27402.0,27402.0,0.0,PASS
+Positive-Bill No-Payment Rate,0.1275,0.1275,0.0,PASS
+Portfolio Payment Coverage,0.1171897309,0.1171897309,0.0,PASS

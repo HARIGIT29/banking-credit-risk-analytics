@@ -1,0 +1,167 @@
+table FactRepayment
+	lineageTag: b715dd68-0f70-46de-9ff0-b7fceaae66c2
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 4ff0c977-fb54-4c14-8d5a-70840f846fb5
+		summarizeBy: none
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthIndex
+		dataType: int64
+		formatString: 0
+		lineageTag: 91ab645b-cd6a-45ed-8629-998e1378a5d8
+		summarizeBy: none
+		sourceColumn: MonthIndex
+
+		annotation SummarizationSetBy = Automatic
+
+	column PayStatus
+		dataType: int64
+		formatString: 0
+		lineageTag: 5c7147fa-627e-40b4-be8d-0dd053614bad
+		summarizeBy: sum
+		sourceColumn: PayStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column BillAmount
+		dataType: double
+		lineageTag: 2cc40669-b74c-45d2-b3e6-453c8badd446
+		summarizeBy: sum
+		sourceColumn: BillAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PaymentAmount
+		dataType: double
+		lineageTag: 011eedcc-0169-4476-96c3-0e9b1f94d9b2
+		summarizeBy: sum
+		sourceColumn: PaymentAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition FactRepayment = m
+		mode: import
+		source =
+				let
+				    Source = Customer_Risk,
+				
+				    SelectedColumns =
+				        Table.SelectColumns(
+				            Source,
+				            {
+				                "ID",
+				                "PAY_0", "PAY_2", "PAY_3", "PAY_4", "PAY_5", "PAY_6",
+				                "BILL_AMT1", "BILL_AMT2", "BILL_AMT3",
+				                "BILL_AMT4", "BILL_AMT5", "BILL_AMT6",
+				                "PAY_AMT1", "PAY_AMT2", "PAY_AMT3",
+				                "PAY_AMT4", "PAY_AMT5", "PAY_AMT6"
+				            }
+				        ),
+				
+				    AddMonthlyRows =
+				        Table.AddColumn(
+				            SelectedColumns,
+				            "MonthlyData",
+				            each {
+				                [
+				                    MonthIndex = 1,
+				                    PayStatus = [PAY_6],
+				                    BillAmount = [BILL_AMT6],
+				                    PaymentAmount = [PAY_AMT6]
+				                ],
+				                [
+				                    MonthIndex = 2,
+				                    PayStatus = [PAY_5],
+				                    BillAmount = [BILL_AMT5],
+				                    PaymentAmount = [PAY_AMT5]
+				                ],
+				                [
+				                    MonthIndex = 3,
+				                    PayStatus = [PAY_4],
+				                    BillAmount = [BILL_AMT4],
+				                    PaymentAmount = [PAY_AMT4]
+				                ],
+				                [
+				                    MonthIndex = 4,
+				                    PayStatus = [PAY_3],
+				                    BillAmount = [BILL_AMT3],
+				                    PaymentAmount = [PAY_AMT3]
+				                ],
+				                [
+				                    MonthIndex = 5,
+				                    PayStatus = [PAY_2],
+				                    BillAmount = [BILL_AMT2],
+				                    PaymentAmount = [PAY_AMT2]
+				                ],
+				                [
+				                    MonthIndex = 6,
+				                    PayStatus = [PAY_0],
+				                    BillAmount = [BILL_AMT1],
+				                    PaymentAmount = [PAY_AMT1]
+				                ]
+				            }
+				        ),
+				
+				    ExpandedMonthlyData =
+				        Table.ExpandListColumn(
+				            AddMonthlyRows,
+				            "MonthlyData"
+				        ),
+				
+				    ExpandedRecords =
+				        Table.ExpandRecordColumn(
+				            ExpandedMonthlyData,
+				            "MonthlyData",
+				            {
+				                "MonthIndex",
+				                "PayStatus",
+				                "BillAmount",
+				                "PaymentAmount"
+				            },
+				            {
+				                "MonthIndex",
+				                "PayStatus",
+				                "BillAmount",
+				                "PaymentAmount"
+				            }
+				        ),
+				
+				    FinalColumns =
+				        Table.SelectColumns(
+				            ExpandedRecords,
+				            {
+				                "ID",
+				                "MonthIndex",
+				                "PayStatus",
+				                "BillAmount",
+				                "PaymentAmount"
+				            }
+				        ),
+				
+				    ChangedTypes =
+				        Table.TransformColumnTypes(
+				            FinalColumns,
+				            {
+				                {"ID", Int64.Type},
+				                {"MonthIndex", Int64.Type},
+				                {"PayStatus", Int64.Type},
+				                {"BillAmount", type number},
+				                {"PaymentAmount", type number}
+				            }
+				        )
+				in
+				    ChangedTypes
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

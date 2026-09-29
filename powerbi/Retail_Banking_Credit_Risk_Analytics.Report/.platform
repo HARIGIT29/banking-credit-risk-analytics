@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Retail_Banking_Credit_Risk_Analytics"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "8ce7044d-4c67-4a7a-b36d-1b462d9d1b84"
+  }
+}

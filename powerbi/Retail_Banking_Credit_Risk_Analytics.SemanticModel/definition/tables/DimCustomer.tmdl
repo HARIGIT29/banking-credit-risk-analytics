@@ -1,0 +1,242 @@
+table DimCustomer
+	lineageTag: 5ae64bc1-14d4-47fd-9c04-325fd4d0219b
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: cf2290cc-a9f3-484a-afe2-a992b8a187fa
+		summarizeBy: none
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column LIMIT_BAL
+		dataType: double
+		lineageTag: ba686f2e-3d20-46dc-a9b6-d194845d49ae
+		summarizeBy: none
+		sourceColumn: LIMIT_BAL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SEX
+		dataType: int64
+		formatString: 0
+		lineageTag: 6c6602d4-b564-4d4e-ad59-ea51b2017a81
+		summarizeBy: none
+		sourceColumn: SEX
+
+		annotation SummarizationSetBy = Automatic
+
+	column EDUCATION
+		dataType: int64
+		formatString: 0
+		lineageTag: 2f1b063d-f194-43c1-ad34-703f49c88ff1
+		summarizeBy: none
+		sourceColumn: EDUCATION
+
+		annotation SummarizationSetBy = Automatic
+
+	column MARRIAGE
+		dataType: int64
+		formatString: 0
+		lineageTag: 4c17e69b-d625-4a78-8337-cde502ee2ac3
+		summarizeBy: none
+		sourceColumn: MARRIAGE
+
+		annotation SummarizationSetBy = Automatic
+
+	column AGE
+		dataType: int64
+		formatString: 0
+		lineageTag: cc7ebf0a-628e-428c-9ac8-b84fec26efd5
+		summarizeBy: none
+		sourceColumn: AGE
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'default payment next month'
+		dataType: int64
+		formatString: 0
+		lineageTag: cdb0308a-0987-4164-ada1-aafbe03b772f
+		summarizeBy: none
+		sourceColumn: default payment next month
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avg_Bill_6M
+		dataType: double
+		lineageTag: 0edb8135-e608-42c7-9ecf-904139dd31d1
+		summarizeBy: none
+		sourceColumn: Avg_Bill_6M
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Avg_Payment_6M
+		dataType: double
+		lineageTag: 32f7e8ed-4ad2-43e0-b1cc-23e806f77f41
+		summarizeBy: none
+		sourceColumn: Avg_Payment_6M
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Credit_Utilization
+		dataType: double
+		lineageTag: 176ea954-f121-4b45-ab27-b32fd5237fdb
+		summarizeBy: none
+		sourceColumn: Credit_Utilization
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Payment_to_Bill_Ratio_Valid
+		dataType: double
+		lineageTag: dec4fbf6-81c8-4b76-af68-c67eb47b19b3
+		summarizeBy: none
+		sourceColumn: Payment_to_Bill_Ratio_Valid
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Bill_Amount_Status
+		dataType: string
+		lineageTag: da4c6289-5ed8-40c5-9944-a99b9f77e943
+		summarizeBy: none
+		sourceColumn: Bill_Amount_Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column Payment_vs_Bill_Status
+		dataType: string
+		lineageTag: bfbdb760-c14a-4b8d-b01f-2e4e0c406692
+		summarizeBy: none
+		sourceColumn: Payment_vs_Bill_Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column PAY_0_Delayed
+		dataType: int64
+		formatString: 0
+		lineageTag: f9603a4f-01c4-420b-a372-8c1b20048f2c
+		summarizeBy: none
+		sourceColumn: PAY_0_Delayed
+
+		annotation SummarizationSetBy = Automatic
+
+	column PAY_2_Delayed
+		dataType: int64
+		formatString: 0
+		lineageTag: 0806a184-a1ec-4f16-b209-081dcaeeb803
+		summarizeBy: none
+		sourceColumn: PAY_2_Delayed
+
+		annotation SummarizationSetBy = Automatic
+
+	column PAY_3_Delayed
+		dataType: int64
+		formatString: 0
+		lineageTag: 818c711d-9394-498a-94d3-c559ed4538bc
+		summarizeBy: none
+		sourceColumn: PAY_3_Delayed
+
+		annotation SummarizationSetBy = Automatic
+
+	column PAY_4_Delayed
+		dataType: int64
+		formatString: 0
+		lineageTag: aab98a7f-70d3-4167-8f05-00745c62b3c0
+		summarizeBy: none
+		sourceColumn: PAY_4_Delayed
+
+		annotation SummarizationSetBy = Automatic
+
+	column PAY_5_Delayed
+		dataType: int64
+		formatString: 0
+		lineageTag: d0988c33-8e2f-4b1f-b7ab-191356f4e4e8
+		summarizeBy: none
+		sourceColumn: PAY_5_Delayed
+
+		annotation SummarizationSetBy = Automatic
+
+	column PAY_6_Delayed
+		dataType: int64
+		formatString: 0
+		lineageTag: d7df894b-7da4-4b95-99bc-4a9e67932508
+		summarizeBy: none
+		sourceColumn: PAY_6_Delayed
+
+		annotation SummarizationSetBy = Automatic
+
+	column Delinquency_Count
+		dataType: int64
+		formatString: 0
+		lineageTag: fee40761-7583-4ff6-a4ab-baccc4b0eef1
+		summarizeBy: none
+		sourceColumn: Delinquency_Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column Max_Delinquency_Code
+		dataType: int64
+		formatString: 0
+		lineageTag: c83733ea-d37e-4cec-9b19-6c2115801caf
+		summarizeBy: none
+		sourceColumn: Max_Delinquency_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Default_Label
+		dataType: string
+		lineageTag: 6e220ff2-fcb4-4858-9077-0fdb63ee6f73
+		summarizeBy: none
+		sourceColumn: Default_Label
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age_Group
+		dataType: string
+		lineageTag: af4ac7a3-939a-4e00-9a8e-bb98286b5c10
+		summarizeBy: none
+		sourceColumn: Age_Group
+
+		annotation SummarizationSetBy = Automatic
+
+	column Credit_Limit_Band
+		dataType: string
+		lineageTag: 86299c26-e28d-4a1e-9740-32d6ce659ce6
+		summarizeBy: none
+		sourceColumn: Credit_Limit_Band
+
+		annotation SummarizationSetBy = Automatic
+
+	column Utilization_Band
+		dataType: string
+		lineageTag: 1fe687d3-3f08-4156-b56c-df81c34434e7
+		summarizeBy: none
+		sourceColumn: Utilization_Band
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimCustomer = m
+		mode: import
+		source =
+				let
+				    Source = Customer_Risk,
+				    #"Removed Columns" = Table.RemoveColumns(Source,{"PAY_0", "PAY_2", "PAY_3", "PAY_4", "PAY_5", "PAY_6", "BILL_AMT1", "BILL_AMT2", "BILL_AMT3", "BILL_AMT4", "BILL_AMT5", "BILL_AMT6", "PAY_AMT1", "PAY_AMT2", "PAY_AMT3", "PAY_AMT4", "PAY_AMT5", "PAY_AMT6"}),
+				    #"Sorted Rows" = Table.Sort(#"Removed Columns",{{"ID", Order.Ascending}}),
+				    #"Removed Duplicates" = Table.Distinct(#"Sorted Rows", {"ID"})
+				in
+				    #"Removed Duplicates"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
